@@ -144,7 +144,7 @@ Serialisation
 def save_network(tf_session, model_folder, cp_name, optimisation_summary):
 
     # Save model
-    saver = tf.train.Saver(max_to_keep=100000)
+    saver = tf.compat.v1.train.Saver(max_to_keep=100000)
     save_path = saver.save(tf_session, os.path.join(model_folder, "{0}.ckpt".format(cp_name)))
     # Save opt summary
     opt_summary_path = os.path.join(model_folder, "{0}_optsummary.csv".format(cp_name))
@@ -157,7 +157,7 @@ def load_network(tf_session, model_folder, cp_name):
     load_path = os.path.join(model_folder, "{0}.ckpt".format(cp_name))
 
     initial_vars = set([v.name for v in tf.get_default_graph().as_graph_def().node])
-    saver = tf.train.Saver()
+    saver = tf.compat.v1.train.Saver()
     saver.restore(tf_session, load_path)
     all_vars = set([v.name for v in tf.get_default_graph().as_graph_def().node])
 
