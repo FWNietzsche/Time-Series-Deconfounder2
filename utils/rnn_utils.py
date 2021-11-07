@@ -25,7 +25,7 @@ class AutoregressiveLSTMCell(tf.contrib.rnn.RNNCell):
 
         with tf.variable_scope("autoregressive"):
             output, state = self.lstm_cell(combined_inputs, actual_states)
-            output = tf.layers.dense(output, self._output_size, activation=tf.nn.tanh)
+            output = keras.layers.Dense(output, self._output_size, activation=tf.nn.tanh)
 
         state = tf.concat([state, output], axis=-1)
 

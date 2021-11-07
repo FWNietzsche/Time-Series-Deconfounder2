@@ -193,7 +193,7 @@ class FactorModel:
 
     def train(self, dataset_train, dataset_val, verbose=False):
         self.treatment_prob_predictions = self.build_network()
-        self.treatment_realizations = tf.distributions.Bernoulli(probs=self.treatment_prob_predictions).sample()
+        self.treatment_realizations = tfp.distributions.Bernoulli(probs=self.treatment_prob_predictions).sample()
 
         self.loss = self.compute_loss(self.target_treatments, self.treatment_prob_predictions)
         optimizer = self.get_optimizer()
@@ -201,12 +201,12 @@ class FactorModel:
         # Setup tensorflow
         tf_device = 'gpu'
         if tf_device == "cpu":
-            tf_config = tf.ConfigProto(log_device_placement=False, device_count={'GPU': 0})
+            tf_config = tf.compat.v1.ConfigProto(log_device_placement=False, device_count={'GPU': 0})
         else:
-            tf_config = tf.ConfigProto(log_device_placement=False, device_count={'GPU': 1})
+            tf_config = tf.compat.v1.ConfigProto(log_device_placement=False, device_count={'GPU': 1})
             tf_config.gpu_options.allow_growth = True
 
-        self.sess = tf.Session(config=tf_config)
+        self.sess = tf.compat.v1.Session(config=tf_config)
         self.sess.run(tf.compat.v1.global_variables_initializer())
         self.sess.run(tf.compat.v1.local_variables_initializer())
 
