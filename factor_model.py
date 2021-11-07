@@ -64,7 +64,7 @@ class FactorModel:
         else:
             init_state = autoregressive_cell.zero_state(self.batch_size, dtype=tf.float32)
 
-        rnn_output, _ = keras.layers.RNN(
+        rnn_output, _ =  rnn.dynamic_rnn(
             autoregressive_cell,
             self.rnn_input,
             initial_state=init_state,
