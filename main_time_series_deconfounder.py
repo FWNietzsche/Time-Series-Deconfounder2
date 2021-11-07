@@ -11,7 +11,7 @@ import os
 import argparse
 import pickle
 import logging
-
+import csv
 import numpy as np
 
 from simulated_autoregressive import AutoregressiveSimulation
@@ -41,8 +41,10 @@ if __name__ == '__main__':
 
     # Simulate dataset
     np.random.seed(100)
-    autoregressive = AutoregressiveSimulation(args.gamma, args.num_simulated_hidden_confounders)
-    dataset = autoregressive.generate_dataset(5000, 31)
+    f = open("C:/Users/socra/Desktop/2021년 2학기/경제학 연습/growth_democracy dataset.csv")
+    dataset = csv.reader(f)
+    # autoregressive = AutoregressiveSimulation(args.gamma, args.num_simulated_hidden_confounders)
+    # dataset = autoregressive.generate_dataset(5000, 31)
 
     dataset_with_confounders_filename = '{}/{}_dataset_with_substitute_confounders.txt'.format(args.results_dir,
                                                                                                args.exp_name)
