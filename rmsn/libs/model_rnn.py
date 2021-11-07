@@ -385,7 +385,7 @@ class RnnModel:
                             .batch(self.minibatch_size) \
                             .repeat(self.epochs)
 
-        iterator = tf.compat.v1.data.make_one_shot_iterator()
+        iterator = tf.compat.v1.data.make_one_shot_iterator(training_dataset)
         data_chunk = iterator.get_next()
 
         input_minibatch = tf.cast(data_chunk['inputs'], tf.float32)
