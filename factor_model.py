@@ -11,6 +11,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 logging.getLogger().setLevel(logging.INFO)
 
 import numpy as np
+import keras
 from tqdm import tqdm
 import tensorflow as tf
 from tensorflow.contrib.rnn import LSTMCell, DropoutWrapper
