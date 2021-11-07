@@ -194,7 +194,7 @@ class FactorModel:
 
     def train(self, dataset_train, dataset_val, verbose=False):
         self.treatment_prob_predictions = self.build_network()
-        self.treatment_realizations = tfp.distributions.Bernoulli(probs=self.treatment_prob_predictions).sample()
+        self.treatment_realizations = tf.distributions.Bernoulli(probs=self.treatment_prob_predictions).sample()
 
         self.loss = self.compute_loss(self.target_treatments, self.treatment_prob_predictions)
         optimizer = self.get_optimizer()
