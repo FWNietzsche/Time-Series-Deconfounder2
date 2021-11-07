@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+import keras
 
 class AutoregressiveLSTMCell(tf.contrib.rnn.RNNCell):
     def __init__(self, lstm, output_size):
