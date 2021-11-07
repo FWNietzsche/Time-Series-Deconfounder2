@@ -249,7 +249,7 @@ class RnnModel:
             else:
                 dataset = self.test_data.batch(self.minibatch_size)
 
-            iterator = tf.data.Iterator.from_structure(dataset.output_types,
+            iterator = tf.compat.v1.data.Iterator.from_structure(dataset.output_types,
                                                        dataset.output_shapes)
 
             initializer = iterator.make_initializer(dataset)
@@ -299,7 +299,7 @@ class RnnModel:
         lstm_additional_size = self.output_size \
             if not self.b_use_seq2seq_training_mode and self.b_use_seq2seq_feedback \
             else 0
-        cell = tf.nn.rnn_cell.DropoutWrapper(self.rnn_cell,
+        cell = tf.compat.v1.nn.rnn_cell.DropoutWrapper(self.rnn_cell,
                                              input_keep_prob=keep_probs,
                                              output_keep_prob=keep_probs,
                                              state_keep_prob=keep_probs,
@@ -385,7 +385,7 @@ class RnnModel:
                             .batch(self.minibatch_size) \
                             .repeat(self.epochs)
 
-        iterator = training_dataset.make_one_shot_iterator()
+        iterator = tf.compat.v1.data.make_one_shot_iterator()
         data_chunk = iterator.get_next()
 
         input_minibatch = tf.cast(data_chunk['inputs'], tf.float32)
