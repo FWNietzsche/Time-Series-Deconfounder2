@@ -33,10 +33,10 @@ class FactorModel:
         self.batch_size = hyperparams['batch_size']
         self.rnn_keep_prob = hyperparams['rnn_keep_prob']
 
-        tf.reset_default_graph()
-        self.previous_covariates = tf.placeholder(tf.float32, [None, self.max_sequence_length - 1, self.num_covariates])
-        self.previous_treatments = tf.placeholder(tf.float32, [None, self.max_sequence_length - 1, self.num_treatments])
-        self.trainable_init_input = tf.get_variable(name='trainable_init_input',
+        tf.compat.v1.reset_default_graph()
+        self.previous_covariates = tf.compat.v1.placeholder(tf.float32, [None, self.max_sequence_length - 1, self.num_covariates])
+        self.previous_treatments = tf.compat.v1.placeholder(tf.float32, [None, self.max_sequence_length - 1, self.num_treatments])
+        self.trainable_init_input = tf.compat.v1.get_variable(name='trainable_init_input',
                                                     shape=[self.batch_size, 1,
                                                            self.num_covariates + self.num_treatments], trainable=True)
 
@@ -63,7 +63,7 @@ class FactorModel:
         else:
             init_state = autoregressive_cell.zero_state(self.batch_size, dtype=tf.float32)
 
-        rnn_output, _ = rnn.dynamic_rnn(
+        rnn_output, _ = keras.layers.RNN(
             autoregressive_cell,
             self.rnn_input,
             initial_state=init_state,

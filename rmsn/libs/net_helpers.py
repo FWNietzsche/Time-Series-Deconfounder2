@@ -60,7 +60,7 @@ def randomise_minibatch_index(Y, minibatch_size):
     return tmp
 
 def get_optimization_graph(loss, learning_rate, max_global_norm, global_step,
-                           optimisation_function=tf.train.AdamOptimizer):
+                           optimisation_function=tf.compat.v1.train.AdamOptimizer):
     # Optimisation step
 
     optimizer = optimisation_function(learning_rate)
