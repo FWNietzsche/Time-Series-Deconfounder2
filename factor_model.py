@@ -207,8 +207,8 @@ class FactorModel:
             tf_config.gpu_options.allow_growth = True
 
         self.sess = tf.Session(config=tf_config)
-        self.sess.run(tf.global_variables_initializer())
-        self.sess.run(tf.local_variables_initializer())
+        self.sess.run(tf.compat.v1.global_variables_initializer())
+        self.sess.run(tf.compat.v1.local_variables_initializer())
 
         for epoch in tqdm(range(self.num_epochs)):
             for (batch_previous_covariates, batch_previous_treatments, batch_current_covariates,
@@ -242,8 +242,8 @@ class FactorModel:
         mask = tf.sign(tf.reduce_max(tf.abs(self.rnn_input), axis=2))
         flat_mask = tf.reshape(mask, [-1, 1])
 
-        cross_entropy = - tf.reduce_sum((target_treatments_reshape * tf.log(
-            tf.clip_by_value(treatment_predictions, 1e-10, 1.0)) + (1 - target_treatments_reshape) * (tf.log(
+        cross_entropy = - tf.reduce_sum((target_treatments_reshape * tf.math.log(
+            tf.clip_by_value(treatment_predictions, 1e-10, 1.0)) + (1 - target_treatments_reshape) * (tf.math.log(
             tf.clip_by_value(1 - treatment_predictions, 1e-10, 1.0)))) * flat_mask, axis=0)
 
         self.mask = mask
