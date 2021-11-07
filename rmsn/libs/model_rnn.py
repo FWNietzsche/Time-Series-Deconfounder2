@@ -131,7 +131,7 @@ class RnnModel:
 
 
         with tf.variable_scope(variable_scope_name):
-            self.rnn_cell = tf.contrib.rnn.BasicLSTMCell(self.hidden_layer_size,
+            self.rnn_cell = tf.keras.layers.LSTMCell(self.hidden_layer_size,
                                                          activation=_ACTIVATION_MAP[self.memory_activation_type],
                                                          state_is_tuple=False,
                                                          name=variable_scope_name
