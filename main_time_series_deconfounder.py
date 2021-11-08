@@ -47,8 +47,12 @@ if __name__ == '__main__':
     autoregressive = AutoregressiveSimulation(args.gamma, args.num_simulated_hidden_confounders)
     dataset = autoregressive.generate_dataset(5000, 31)
 
-    pd.DataFrame(dataset).to_csv("results/simulated dataset.csv")
-    # dataset.to_csv('results/simulated dataset.csv')
+    # print(dataset)
+    data_df = pd.DataFrame({dataset['previous_covariates'], dataset['previous_treatments'], dataset['covariates'],
+                  dataset['confounders'], dataset['treatments'], dataset['sequence_length'], dataset['outcomes']}
+                 )
+    # data_df = pd.DataFrame(dataset)
+    data_df.to_csv('results/simulated dataset.csv')
 
     dataset_with_confounders_filename = '{}/{}_dataset_with_substitute_confounders.txt'.format(args.results_dir,
                                                                                                args.exp_name)
