@@ -13,6 +13,7 @@ import pickle
 import logging
 import csv
 import numpy as np
+import pandas as pd
 
 from simulated_autoregressive import AutoregressiveSimulation
 from time_series_deconfounder import test_time_series_deconfounder
@@ -45,6 +46,9 @@ if __name__ == '__main__':
     # dataset = csv.reader(f)
     autoregressive = AutoregressiveSimulation(args.gamma, args.num_simulated_hidden_confounders)
     dataset = autoregressive.generate_dataset(5000, 31)
+
+    pd.DataFrame(dataset).to_csv("results/simulated dataset.csv")
+    # dataset.to_csv('results/simulated dataset.csv')
 
     dataset_with_confounders_filename = '{}/{}_dataset_with_substitute_confounders.txt'.format(args.results_dir,
                                                                                                args.exp_name)
