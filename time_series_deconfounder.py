@@ -73,8 +73,6 @@ def train_factor_model(dataset_train, dataset_val, dataset, num_confounders, hyp
     model.train(dataset_train, dataset_val)
     predicted_confounders = model.compute_hidden_confounders(dataset)
 
-    print(model.eval_predictive_checks(dataset))
-
     return predicted_confounders
 
 
@@ -176,3 +174,7 @@ def test_time_series_deconfounder(dataset, num_substitute_confounders, exp_name,
 
     print("Outcome model RMSE when trained WITH the substitutes for the hidden confounders.")
     print(rmse_with_confounders)
+
+    print("P_value of the Factor Model.")
+    print(model.eval_predictive_checks(dataset))
+
