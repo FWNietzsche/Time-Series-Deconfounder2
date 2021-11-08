@@ -73,6 +73,8 @@ def train_factor_model(dataset_train, dataset_val, dataset, num_confounders, hyp
     model.train(dataset_train, dataset_val)
     predicted_confounders = model.compute_hidden_confounders(dataset)
 
+    print(model.eval_predictive_checks(dataset))
+
     return predicted_confounders
 
 
